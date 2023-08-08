@@ -26,8 +26,18 @@ class QuoteController extends Controller
             'email' => 'required|email',
         ]);
 
-        // Process the form data and perform actions as needed
+        $symbol = $request->input('company_symbol');
         
-        return redirect()->back()->with('success', 'Form submitted successfully!');
+        // Make an API call to retrieve historical price data
+        $apiResponse = Http::withHeaders([
+            'X-RapidAPI-Key' => '8b0bdad5d5msh541389539013c6ep168487jsn9131f56fc625',
+            'X-RapidAPI-Host' => 'yh-finance.p.rapidapi.com',
+        ])->get("https://yh-finance.p.rapidapi.com/stock/v3/get-historical-data?symbol=$symbol&region=US");
+
+        $historicalData = $apiResponse->json();
+
+        //dd($historicalData['prices']);
+
+        return view('prices', compact('historicalData', 'symbol'));
     }
 }
