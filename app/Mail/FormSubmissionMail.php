@@ -22,6 +22,6 @@ class FormSubmissionMail extends Mailable
 
     public function build()
     {
-        return $this->subject('Historical Prices')->view('emails.form_submission');
+        return $this->subject('Historical Prices - '.$this->data['formData']['company_symbol'])->view('emails.form_submission');
     }
 }

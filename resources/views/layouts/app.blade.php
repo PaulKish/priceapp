@@ -8,6 +8,7 @@
 </head>
 <body>
     <div class="container mt-5">
+        <h1 class="mb-5 border-bottom">Price Viewer</h1>
         @yield('content')
     </div>
 

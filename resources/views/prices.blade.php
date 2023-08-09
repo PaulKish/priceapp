@@ -1,9 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
-@if(session('success'))
-<div class="alert alert-success">{{ session('success') }}</div>
-@endif
+<a class="btn btn-primary" href="/">Go Back</a>
+<hr>
+
 <!-- Nav tabs -->
 <ul class="nav nav-tabs" id="myTab" role="tablist">
     <li class="nav-item" role="presentation">

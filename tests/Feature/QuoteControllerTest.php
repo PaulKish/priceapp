@@ -2,16 +2,16 @@
 
 namespace Tests\Feature;
 
+use App\Mail\FormSubmissionMail;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Support\Facades\Mail;
 use Tests\TestCase;
 
 class QuoteControllerTest extends TestCase
 {
     /**
-     * A basic test example.
-     *
-     * @return void
+     * Is Form Visible
      */
     public function testFormDisplaysCorrectly()
     {
@@ -24,6 +24,9 @@ class QuoteControllerTest extends TestCase
         $response->assertSee('Email');
     }
 
+     /**
+     * Is Form Valid
+     */
     public function testFormValidation()
     {
         $response = $this->post(route('process.form'), [
@@ -38,6 +41,9 @@ class QuoteControllerTest extends TestCase
         ]);
     }
 
+     /**
+     * Is Date Correct
+     */
     public function testEndDateAfterStartDateValidation()
     {
         $response = $this->post(route('process.form'), [
@@ -50,6 +56,10 @@ class QuoteControllerTest extends TestCase
         $response->assertSessionHasErrors(['end_date']);
     }
 
+
+    /**
+     * Is Date Correct
+     */
     public function testValidEndDate()
     {
         $response = $this->post(route('process.form'), [
@@ -62,6 +72,9 @@ class QuoteControllerTest extends TestCase
         $response->assertSessionDoesntHaveErrors(['end_date']);
     }
 
+    /**
+     * Is Email Valid
+     */
     public function testValidEmail()
     {
         $response = $this->post(route('process.form'), [
@@ -74,6 +87,9 @@ class QuoteControllerTest extends TestCase
         $response->assertSessionDoesntHaveErrors(['email']);
     }
 
+     /**
+     * Is Email Invalid
+     */
     public function testInvalidEmail()
     {
         $response = $this->post(route('process.form'), [
@@ -86,6 +102,9 @@ class QuoteControllerTest extends TestCase
         $response->assertSessionHasErrors(['email']);
     }
 
+    /**
+     * Is Table Visible
+     */
     public function testTableContentRendering()
     {
         $response = $this->post(route('process.form'), [
@@ -105,6 +124,9 @@ class QuoteControllerTest extends TestCase
         $response->assertSee('Volume');
     }
 
+    /**
+     * Is Chart Visible
+     */
     public function testChartContentRendering()
     {
         $response = $this->post(route('process.form'), [
@@ -117,4 +139,8 @@ class QuoteControllerTest extends TestCase
         $response->assertStatus(200);
         $response->assertSee('Opening and Closing Price Chart');
     }
+
+    /**
+     * Is Email Sent
+     */
 }

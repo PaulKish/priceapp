@@ -3,32 +3,30 @@
 <head>
     <title>Historical Prices</title>
 </head>
-<body>
-    <h2>Historical Prices - {{ $data['formData']['company_symbol'] }}</h2>
-    <p>{{ $data['formData']['start_date'] }} to {{ $data['formData']['end_date'] }}</p>
+<body style="font-family: Arial, sans-serif; line-height: 1.6; margin: 0; padding: 20px;">
+    <h2>Historical Prices - {{ $data['formData']['company_symbol'] }} {{ $data['formData']['start_date'] }} to {{ $data['formData']['end_date'] }}</h2>
     
     @if(isset($data['historicalData']))
-        <h2>Historical Price Data</h2>
-        <table>
+        <table style="border-collapse: collapse; width: 100%;">
             <thead>
                 <tr>
-                    <th>Date</th>
-                    <th>Open</th>
-                    <th>High</th>
-                    <th>Low</th>
-                    <th>Close</th>
-                    <th>Volume</th>
+                    <th style="border: 1px solid #ccc; padding: 8px;">Date</th>
+                    <th style="border: 1px solid #ccc; padding: 8px;">Open</th>
+                    <th style="border: 1px solid #ccc; padding: 8px;">High</th>
+                    <th style="border: 1px solid #ccc; padding: 8px;">Low</th>
+                    <th style="border: 1px solid #ccc; padding: 8px;">Close</th>
+                    <th style="border: 1px solid #ccc; padding: 8px;">Volume</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach ($data['historicalData']['prices'] as $price)
                     <tr>
-                        <td>{{ date('Y-m-d', $price['date']) }}</td>
-                        <td>{{ $price['open'] ?? "" }}</td>
-                        <td>{{ $price['high'] ?? ""}}</td>
-                        <td>{{ $price['low'] ?? "" }}</td>
-                        <td>{{ $price['close'] ?? "" }}</td>
-                        <td>{{ $price['volume'] ?? "" }}</td>
+                        <td style="border: 1px solid #ccc; padding: 8px;">{{ date('Y-m-d', $price['date']) }}</td>
+                        <td style="border: 1px solid #ccc; padding: 8px;">{{ $price['open'] ?? "" }}</td>
+                        <td style="border: 1px solid #ccc; padding: 8px;">{{ $price['high'] ?? ""}}</td>
+                        <td style="border: 1px solid #ccc; padding: 8px;">{{ $price['low'] ?? "" }}</td>
+                        <td style="border: 1px solid #ccc; padding: 8px;">{{ $price['close'] ?? "" }}</td>
+                        <td style="border: 1px solid #ccc; padding: 8px;">{{ $price['volume'] ?? "" }}</td>
                     </tr>
                 @endforeach
             </tbody>
