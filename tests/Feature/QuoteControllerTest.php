@@ -85,4 +85,36 @@ class QuoteControllerTest extends TestCase
 
         $response->assertSessionHasErrors(['email']);
     }
+
+    public function testTableContentRendering()
+    {
+        $response = $this->post(route('process.form'), [
+            'company_symbol' => 'AAPL',
+            'start_date' => '2023-08-01',
+            'end_date' => '2023-08-15',
+            'email' => 'test@example.com',
+        ]);
+
+        $response->assertStatus(200);
+        $response->assertSee('Historical Price Data');
+        $response->assertSee('Date');
+        $response->assertSee('Open');
+        $response->assertSee('Close');
+        $response->assertSee('High');
+        $response->assertSee('Low');
+        $response->assertSee('Volume');
+    }
+
+    public function testChartContentRendering()
+    {
+        $response = $this->post(route('process.form'), [
+            'company_symbol' => 'AAPL',
+            'start_date' => '2023-08-01',
+            'end_date' => '2023-08-15',
+            'email' => 'test@example.com',
+        ]);
+
+        $response->assertStatus(200);
+        $response->assertSee('Opening and Closing Price Chart');
+    }
 }

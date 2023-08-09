@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use App\Mail\FormSubmissionMail;
+use Illuminate\Support\Facades\Mail;
+
 
 class QuoteController extends Controller
 {
@@ -36,7 +39,15 @@ class QuoteController extends Controller
 
         $historicalData = $apiResponse->json();
 
-        //dd($historicalData['prices']);
+        // Send email
+        $data = [
+            'formData' => $request->all(),
+            'historicalData' => $historicalData,
+        ];
+
+        $recipientEmail = $request->input('email');
+
+        Mail::to($recipientEmail)->send(new FormSubmissionMail($data));
 
         return view('prices', compact('historicalData', 'symbol'));
     }
